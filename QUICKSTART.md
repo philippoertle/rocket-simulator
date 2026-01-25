@@ -6,7 +6,47 @@ Get up and running in 5 minutes!
 
 ---
 
-## Your First Simulation
+## Using the GUI (Easiest)
+
+### 0. GUI Quick Start
+
+**For non-programmers:** Use the graphical interface!
+
+**Installation:**
+```bash
+pip install rocket-simulator[gui]
+```
+
+**Launch:**
+```bash
+python -m rocket_sim.gui
+# Or: rocket-sim-gui
+```
+
+**Steps:**
+1. **Configure** - Set parameters in the left panel:
+   - Volume: 2.0 L (default)
+   - H₂:O₂ Ratio: 2.0 (stoichiometric)
+   - Diameter: 95 mm
+   - Thickness: 0.3 mm
+   - Material: PET
+
+2. **Run** - Click "▶ Run Simulation" button
+
+3. **View Results** - See results and plots in the right panel:
+   - Peak Pressure, Temperature, Safety Factor
+   - Safety status (✅ Safe or ⚠️ Unsafe)
+   - Interactive plots (4 tabs)
+
+4. **Export** - File → Export Results (JSON or text)
+
+**Presets:**
+- Click "Default (Safe)" for a safe 2L configuration
+- Click "Dangerous (High Pressure)" to test failure prediction
+
+---
+
+## Using Python Code
 
 ### 1. Basic Simulation
 

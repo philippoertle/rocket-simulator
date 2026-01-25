@@ -45,6 +45,7 @@ setup(
         "dev": [
             "pytest>=7.4.0",
             "pytest-cov>=4.1.0",
+            "pytest-qt>=4.2.0",
             "pylint>=2.17.0",
             "flake8>=6.0.0",
             "black>=23.0.0",
@@ -54,6 +55,9 @@ setup(
             "sphinx>=7.0.0",
             "sphinx-rtd-theme>=1.2.0",
         ],
+        "gui": [
+            "PySide6>=6.6.0",
+        ],
     },
     include_package_data=True,
     package_data={
@@ -61,7 +65,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            # Future: rocket-sim=rocket_sim.main:main
+            "rocket-sim-gui=rocket_sim.gui.__main__:main",
         ],
     },
     project_urls={

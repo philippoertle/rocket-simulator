@@ -84,6 +84,23 @@ This will automatically install all dependencies:
 - cantera ≥3.0.0
 - pyyaml ≥6.0
 
+### Optional: Install GUI Support
+
+If you want to use the graphical user interface:
+
+```bash
+# Install with GUI support
+pip install rocket-simulator[gui]
+
+# Or if installing from source
+pip install -e ".[gui]"
+```
+
+This will install additional dependencies:
+- PySide6 ≥6.6.0 (Qt6 bindings for Python)
+
+**Note:** The GUI is optional. You can use the Python API without installing GUI dependencies.
+
 ### Step 4: Verify Installation
 
 ```python
@@ -93,7 +110,21 @@ python -c "from rocket_sim import __version__; print(__version__)"
 
 Expected output: `0.1.0`
 
-### Step 5: Run Quick Test
+### Step 5: Test GUI (Optional)
+
+If you installed GUI support:
+
+```bash
+# Launch GUI
+python -m rocket_sim.gui
+
+# Or use entry point
+rocket-sim-gui
+```
+
+The GUI window should open. If you see errors about missing PySide6, install GUI support (see Step 3 Optional).
+
+### Step 6: Run Quick Test
 
 ```python
 from rocket_sim.integration.full_simulation import (

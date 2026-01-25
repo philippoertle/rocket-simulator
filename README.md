@@ -98,6 +98,9 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Install with GUI support (optional)
+pip install -e ".[gui]"
+
 # Install Cantera (for Module 1)
 # See: https://cantera.org/install/index.html
 conda install -c cantera cantera  # Recommended method
@@ -109,6 +112,33 @@ conda install -c cantera cantera  # Recommended method
 - **OpenFOAM** (for Module 4 - CFD, optional) - Install separately
 
 ## Usage
+
+### GUI Application (Recommended for Non-Programmers)
+
+For users who prefer a graphical interface:
+
+```bash
+# Launch GUI
+python -m rocket_sim.gui
+
+# Or if installed with entry point
+rocket-sim-gui
+```
+
+**Features:**
+- Easy configuration through form fields
+- One-click simulation execution
+- Integrated visualization with multiple plot types
+- Export results as JSON or text reports
+- No programming required
+
+**Quick Start:**
+1. Configure simulation parameters (Volume, H₂:O₂ ratio, vessel dimensions, material)
+2. Click "Run Simulation" button
+3. View results and plots in the right panel
+4. Export results using File > Export Results
+
+### Python API (For Advanced Users)
 
 ### Module 1: Combustion Simulation
 

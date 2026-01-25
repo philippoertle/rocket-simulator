@@ -39,7 +39,7 @@ jobs:
         pytest -v --cov=rocket_sim --cov-report=xml --cov-report=term -n auto
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
         flags: unittests

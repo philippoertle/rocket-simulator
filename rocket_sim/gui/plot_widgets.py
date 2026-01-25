@@ -132,9 +132,9 @@ class VisualizationWidget(QWidget):
         ax2 = ax1.twinx()
 
         # Extract data from result
-        time = result.combustion_result.time
-        pressure = result.combustion_result.pressure / 1e5  # Convert to bar
-        temperature = result.combustion_result.temperature
+        time = result.combustion.time
+        pressure = result.combustion.pressure / 1e5  # Convert to bar
+        temperature = result.combustion.temperature
 
         # Plot pressure
         ax1.plot(time * 1000, pressure, 'b-', linewidth=2, label='Pressure')
@@ -163,41 +163,47 @@ class VisualizationWidget(QWidget):
         self.stress_canvas.figure.clear()
 
         # Get stress data from FEM results
-        if hasattr(result, 'fem_result') and result.fem_result is not None:
+        if hasattr(result, 'fem_analysis') and result.fem_analysis is not None:
             ax = self.stress_canvas.figure.add_subplot(111)
 
-            # For now, create a simple bar chart of stress components
-            # In a more advanced version, we could show 2D/3D stress fields
+            fem = result.fem_analysis
 
-            fem = result.fem_result
-            locations = ['Cylindrical\nBody', 'Hemispherical\nDome']
+            # Extract stress data from lame_solution
+            if 'lame_solution' in fem:
+                lame = fem['lame_solution']
 
-            hoop_stresses = [
-                fem.cylindrical_hoop_stress_inner / 1e6,
-                fem.hemispherical_hoop_stress_inner / 1e6
-            ]
+                # Get inner and outer surface stresses
+                # Inner surface is at index 0, outer at index -1
+                hoop_inner = lame['sigma_hoop'][0] / 1e6 if lame['sigma_hoop'] else 0
+                hoop_outer = lame['sigma_hoop'][-1] / 1e6 if lame['sigma_hoop'] else 0
+                axial_inner = lame['sigma_axial'][0] / 1e6 if lame['sigma_axial'] else 0
 
-            axial_stresses = [
-                fem.cylindrical_axial_stress_inner / 1e6,
-                fem.hemispherical_axial_stress_inner / 1e6
-            ]
+                locations = ['Inner\nSurface', 'Outer\nSurface']
+                hoop_stresses = [hoop_inner, hoop_outer]
+                axial_stresses = [axial_inner, axial_inner]  # Axial is constant through thickness
 
-            x = range(len(locations))
-            width = 0.35
+                x = range(len(locations))
+                width = 0.35
 
-            ax.bar([i - width/2 for i in x], hoop_stresses, width,
-                   label='Hoop Stress', color='steelblue')
-            ax.bar([i + width/2 for i in x], axial_stresses, width,
-                   label='Axial Stress', color='coral')
+                ax.bar([i - width/2 for i in x], hoop_stresses, width,
+                       label='Hoop Stress', color='steelblue')
+                ax.bar([i + width/2 for i in x], axial_stresses, width,
+                       label='Axial Stress', color='coral')
 
-            ax.set_ylabel('Stress (MPa)', fontsize=12)
-            ax.set_title('Stress Distribution (Inner Surface)', fontsize=14, fontweight='bold')
-            ax.set_xticks(x)
-            ax.set_xticklabels(locations)
-            ax.legend()
-            ax.grid(True, alpha=0.3, axis='y')
+                ax.set_ylabel('Stress (MPa)', fontsize=12)
+                ax.set_title('Stress Distribution', fontsize=14, fontweight='bold')
+                ax.set_xticks(x)
+                ax.set_xticklabels(locations)
+                ax.legend()
+                ax.grid(True, alpha=0.3, axis='y')
 
-            self.stress_canvas.figure.tight_layout()
+                self.stress_canvas.figure.tight_layout()
+            else:
+                ax.text(0.5, 0.5, 'No Lamé solution data available',
+                       ha='center', va='center', fontsize=14)
+                ax.set_xlim(0, 1)
+                ax.set_ylim(0, 1)
+                ax.axis('off')
         else:
             # No FEM data available
             ax = self.stress_canvas.figure.add_subplot(111)
@@ -213,10 +219,10 @@ class VisualizationWidget(QWidget):
         """Generate safety factor evolution plot."""
         self.safety_canvas.figure.clear()
 
-        if hasattr(result, 'dynamics_result') and result.dynamics_result is not None:
+        if hasattr(result, 'system') and result.system is not None:
             ax = self.safety_canvas.figure.add_subplot(111)
 
-            dynamics = result.dynamics_result
+            dynamics = result.system
             time = dynamics.time * 1000  # Convert to ms
             safety_factor = dynamics.safety_factor
 
@@ -260,9 +266,9 @@ class VisualizationWidget(QWidget):
         axes = self.dashboard_canvas.figure.subplots(2, 2)
 
         # Plot 1: Pressure vs Time
-        if hasattr(result, 'combustion_result'):
-            time = result.combustion_result.time * 1000
-            pressure = result.combustion_result.pressure / 1e5
+        if hasattr(result, 'combustion'):
+            time = result.combustion.time * 1000
+            pressure = result.combustion.pressure / 1e5
             axes[0, 0].plot(time, pressure, 'b-', linewidth=2)
             axes[0, 0].set_xlabel('Time (ms)')
             axes[0, 0].set_ylabel('Pressure (bar)', color='b')
@@ -270,8 +276,8 @@ class VisualizationWidget(QWidget):
             axes[0, 0].grid(True, alpha=0.3)
 
         # Plot 2: Temperature vs Time
-        if hasattr(result, 'combustion_result'):
-            temperature = result.combustion_result.temperature
+        if hasattr(result, 'combustion'):
+            temperature = result.combustion.temperature
             axes[0, 1].plot(time, temperature, 'r-', linewidth=2)
             axes[0, 1].set_xlabel('Time (ms)')
             axes[0, 1].set_ylabel('Temperature (K)', color='r')
@@ -279,9 +285,9 @@ class VisualizationWidget(QWidget):
             axes[0, 1].grid(True, alpha=0.3)
 
         # Plot 3: Safety Factor
-        if hasattr(result, 'dynamics_result') and result.dynamics_result is not None:
-            dyn_time = result.dynamics_result.time * 1000
-            sf = result.dynamics_result.safety_factor
+        if hasattr(result, 'system') and result.system is not None:
+            dyn_time = result.system.time * 1000
+            sf = result.system.safety_factor
             axes[1, 0].plot(dyn_time, sf, 'g-', linewidth=2)
             axes[1, 0].axhline(y=1.0, color='r', linestyle='--', alpha=0.7)
             axes[1, 0].axhline(y=2.0, color='orange', linestyle='--', alpha=0.7)
@@ -292,17 +298,19 @@ class VisualizationWidget(QWidget):
             axes[1, 0].set_ylim(bottom=0)
 
         # Plot 4: Stress Summary
-        if hasattr(result, 'fem_result') and result.fem_result is not None:
-            fem = result.fem_result
-            locations = ['Cylindrical', 'Hemispherical']
-            stresses = [
-                fem.cylindrical_hoop_stress_inner / 1e6,
-                fem.hemispherical_hoop_stress_inner / 1e6
-            ]
-            axes[1, 1].bar(locations, stresses, color=['steelblue', 'coral'])
-            axes[1, 1].set_ylabel('Hoop Stress (MPa)')
-            axes[1, 1].set_title('Stress Distribution')
-            axes[1, 1].grid(True, alpha=0.3, axis='y')
+        if hasattr(result, 'fem_analysis') and result.fem_analysis is not None:
+            fem = result.fem_analysis
+            if 'lame_solution' in fem:
+                lame = fem['lame_solution']
+                locations = ['Inner', 'Outer']
+                stresses = [
+                    lame['sigma_hoop'][0] / 1e6 if lame['sigma_hoop'] else 0,
+                    lame['sigma_hoop'][-1] / 1e6 if lame['sigma_hoop'] else 0
+                ]
+                axes[1, 1].bar(locations, stresses, color=['steelblue', 'coral'])
+                axes[1, 1].set_ylabel('Hoop Stress (MPa)')
+                axes[1, 1].set_title('Stress Distribution')
+                axes[1, 1].grid(True, alpha=0.3, axis='y')
 
         self.dashboard_canvas.figure.suptitle(
             'Comprehensive Simulation Dashboard',

@@ -194,7 +194,7 @@ def run_complete_simulation(config: FullSimulationConfig, verbose: bool = True) 
     if verbose:
         print(f"      Peak combustion pressure: {np.max(combustion_result.pressure)/1e5:.2f} bar")
         print(f"      Peak temperature: {np.max(combustion_result.temperature):.0f} K")
-        print(f"      Max dP/dt: {np.max(combustion_result.dPdt)/1e9:.2f} GPa/s")
+        print(f"      Max dP/dt: {combustion_result.max_dPdt/1e9:.2f} GPa/s")
 
     # Step 2: Module 2 - System dynamics
     if verbose:
@@ -293,7 +293,7 @@ def run_complete_simulation(config: FullSimulationConfig, verbose: bool = True) 
     summary = {
         'peak_pressure': np.max(system_result.pressure),
         'peak_temperature': np.max(system_result.temperature),
-        'max_dPdt': np.max(combustion_result.dPdt),
+        'max_dPdt': combustion_result.max_dPdt,
         'min_safety_factor': np.min(system_result.safety_factor),
         'max_hoop_stress': np.max(lame_result.sigma_theta),
         'max_von_mises_stress': np.max(lame_result.sigma_vm),

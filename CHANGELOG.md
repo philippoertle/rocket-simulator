@@ -41,6 +41,14 @@ This is the first public release of the PET Rocket Simulator - a comprehensive e
   - JSON data export
 
 #### Features
+- **Graphical User Interface (GUI)** - Easy-to-use Qt-based interface
+  - Configuration through form fields (no programming required)
+  - One-click simulation execution
+  - Integrated visualization with 4 plot types
+  - Export results as JSON or text reports
+  - Real-time validation with safety presets
+  - Cross-platform support (Windows/macOS/Linux)
+  - 23 GUI-specific tests
 - Real-time safety factor calculation
 - Automatic failure detection and prediction
 - Conservative safety analysis

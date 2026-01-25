@@ -1,0 +1,56 @@
+# Dependabot configuration for automated dependency updates
+version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    reviewers:
+      - "philippoertle"
+    assignees:
+      - "philippoertle"
+    # Group minor and patch updates together
+    groups:
+      development-dependencies:
+        patterns:
+          - "pytest*"
+          - "flake8*"
+          - "pylint*"
+          - "mypy*"
+      production-dependencies:
+        patterns:
+          - "numpy"
+          - "scipy"
+          - "matplotlib"
+          - "cantera"
+    # Version update strategy
+    versioning-strategy: increase
+    # Target branch
+    target-branch: "develop"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+    reviewers:
+      - "philippoertle"

@@ -21,12 +21,12 @@ else:
 setup(
     name="rocket-sim",
     version="0.1.0",
-    author="PET Rocket Safety Project",
-    author_email="",
+    author="Philipp Oertle",
+    author_email="philip.oertle@protonmail.com",
     description="Safety-focused simulation framework for PET bottle H2/O2 rockets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/rocket-simulator",
+    url="https://github.com/philippoertle/rocket-simulator",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -65,9 +65,9 @@ setup(
         ],
     },
     project_urls={
-        "Bug Reports": "https://github.com/yourusername/rocket-simulator/issues",
-        "Source": "https://github.com/yourusername/rocket-simulator",
-        "Documentation": "https://github.com/yourusername/rocket-simulator/blob/main/README.md",
+        "Bug Reports": "https://github.com/philippoertle/rocket-simulator/issues",
+        "Source": "https://github.com/philippoertle/rocket-simulator",
+        "Documentation": "https://github.com/philippoertle/rocket-simulator/blob/main/README.md",
     },
     keywords="rocket simulation safety combustion cantera structural-analysis",
 )

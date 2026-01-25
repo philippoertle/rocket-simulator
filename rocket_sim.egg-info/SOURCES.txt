@@ -1,0 +1,16 @@
+README.md
+setup.py
+rocket_sim/__init__.py
+rocket_sim.egg-info/PKG-INFO
+rocket_sim.egg-info/SOURCES.txt
+rocket_sim.egg-info/dependency_links.txt
+rocket_sim.egg-info/requires.txt
+rocket_sim.egg-info/top_level.txt
+rocket_sim/combustion/__init__.py
+rocket_sim/combustion/cantera_wrapper.py
+rocket_sim/combustion/tests/__init__.py
+rocket_sim/combustion/tests/test_cantera_wrapper.py
+rocket_sim/configs/safe_example.json
+rocket_sim/fem/__init__.py
+rocket_sim/system_model/__init__.py
+rocket_sim/utils/__init__.py

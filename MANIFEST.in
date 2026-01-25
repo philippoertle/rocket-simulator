@@ -1,0 +1,28 @@
+# MANIFEST.in - Include additional files in package distribution
+
+include LICENSE
+include README.md
+include CHANGELOG.md
+include requirements.txt
+include INSTALL.md
+include QUICKSTART.md
+include CONTRIBUTING.md
+
+# Documentation
+recursive-include docs *.md *.rst *.txt
+
+# Exclude development and test files
+recursive-exclude tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+exclude .gitignore
+exclude run_phase5_validation.py
+exclude test_module2.py
+exclude validation_results.json
+
+# Exclude development documentation
+exclude PHASE-*.md
+exclude PROJECT-*.md
+exclude IMPLEMENTATION-COMPLETE.md
+exclude VERIFICATION-COMPLETE.md
+exclude pet_rocket_ai_spec.md

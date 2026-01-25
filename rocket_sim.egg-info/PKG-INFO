@@ -1,3 +1,61 @@
+Metadata-Version: 2.4
+Name: rocket-sim
+Version: 0.1.0
+Summary: Safety-focused simulation framework for PET bottle H2/O2 rockets
+Home-page: https://github.com/yourusername/rocket-simulator
+Author: PET Rocket Safety Project
+Author-email: 
+Project-URL: Bug Reports, https://github.com/yourusername/rocket-simulator/issues
+Project-URL: Source, https://github.com/yourusername/rocket-simulator
+Project-URL: Documentation, https://github.com/yourusername/rocket-simulator/blob/main/README.md
+Keywords: rocket simulation safety combustion cantera structural-analysis
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: scipy>=1.10.0
+Requires-Dist: matplotlib>=3.7.0
+Requires-Dist: cantera>=3.0.0
+Requires-Dist: pytest>=7.4.0
+Requires-Dist: pytest-cov>=4.1.0
+Requires-Dist: pylint>=2.17.0
+Requires-Dist: flake8>=6.0.0
+Requires-Dist: sphinx>=7.0.0
+Requires-Dist: sphinx-rtd-theme>=1.2.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: jsonschema>=4.17.0
+Requires-Dist: black>=23.0.0
+Requires-Dist: mypy>=1.4.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: pylint>=2.17.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: mypy>=1.4.0; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.0.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=1.2.0; extra == "docs"
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
 # PET Rocket Simulator
 
 **ISO/IEC/IEEE 12207:2017 Compliant Development**
@@ -6,38 +64,9 @@ A safety-focused simulation framework to predict and prevent catastrophic struct
 
 ## Project Status
 
-**Current Phase:** Phase 6 - Deployment ✅ **COMPLETE**  
+**Current Phase:** Phase 4A - Foundation (Implementation)  
 **Version:** 0.1.0  
-**Status:** ✅ **PRODUCTION READY** - All Core Development Complete!
-
-**Progress:** 100% Core Development Complete
-
-### Completed Phases
-- ✅ Phase 1-3: Planning, Requirements, Architecture
-- ✅ Phase 4A-D: Implementation (all modules + integration)
-- ✅ Phase 5: Verification & Validation
-- ✅ **Phase 6: Deployment**
-
-### Deployment Status
-- ✅ **PyPI Ready:** Package structure complete
-- ✅ **GitHub Ready:** All documentation complete
-- ✅ **Production Ready:** All tests passing
-- ✅ **User Ready:** Installation & quick start guides
-
-### Quality Metrics
-- ✅ 186+ tests (~96% passing)
-- ✅ >90% code coverage
-- ✅ All 18 requirements verified
-- ✅ Performance: ~3.5s (120x faster than target)
-- ✅ Documentation: 100% complete
-
-### Final Statistics
-- **Modules:** 11 complete + verified + documented
-- **Code:** ~4,200 LOC
-- **Tests:** 186+ tests, ~4,700 LOC
-- **Documentation:** 25+ comprehensive documents
-- **Development Time:** 1 day
-- **Quality:** Production-grade ✅
+**Status:** ✅ Module 1 (Combustion) Complete
 
 ## Mission
 
@@ -54,28 +83,12 @@ Develop a fully open-source, code-driven simulation framework to analyze why exp
 
 ## Architecture
 
-Complete three-module simulation system with integration:
+Four-module coupled simulation system:
 
-1. **Module 1: Thermochemistry** (✅ Complete) - Cantera H₂/O₂ combustion → P(t), T(t)
-2. **Module 2: System Dynamics** (✅ Complete) - ODE system modeling + analytical burst
-3. **Module 3: FEM Analysis** (✅ Complete) - Lamé thick-wall + stress concentrations
-4. **Integration & Visualization** (✅ Complete) - End-to-end pipeline + professional plots
-
-### Full Simulation Pipeline
-
-```
-Configuration
-    ↓
-Module 1: Combustion (Cantera)
-    ↓ P(t), T(t)
-Module 2: System Dynamics (ODE)
-    ↓ Safety factors, failure detection
-Module 3: FEM Analysis (Lamé + concentrations)
-    ↓ Detailed stress analysis
-Visualization & Results
-    ↓
-Professional plots + JSON export
-```
+1. **Module 1: Thermochemistry** (✅ Complete) - Cantera-based H₂/O₂ combustion → pressure curves
+2. **Module 2: System Dynamics** (⏳ Planned) - SciPy ODE mass/energy transient modeling
+3. **Module 3: Structural FEM** (⏳ Planned) - CalculiX burst analysis
+4. **Module 4: CFD** (⏳ Optional) - OpenFOAM flow field refinement
 
 ## Installation
 
@@ -280,4 +293,6 @@ https://github.com/yourusername/rocket-simulator
 
 ---
 
-**Project
+**Project Status:** Active Development  
+**Last Updated:** January 25, 2026  
+**Compliance:** ISO/IEC/IEEE 12207:2017

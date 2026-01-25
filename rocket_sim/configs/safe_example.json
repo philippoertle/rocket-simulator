@@ -1,0 +1,17 @@
+{
+  "description": "Safe configuration example - Low pressure test",
+  "simulation_type": "combustion",
+  "parameters": {
+    "volume": 0.001,
+    "mix_ratio": 2.0,
+    "T0": 300.0,
+    "P0": 101325.0,
+    "end_time": 0.01,
+    "n_points": 1000
+  },
+  "expected_outcome": {
+    "peak_pressure_bar": 15.0,
+    "safety_margin": "High - test configuration only"
+  },
+  "notes": "This is a baseline test configuration for validation purposes. Not for actual rocket design."
+}

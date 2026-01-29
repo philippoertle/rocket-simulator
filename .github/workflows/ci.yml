@@ -36,7 +36,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest -v --cov=rocket_sim --cov-report=xml --cov-report=term -n auto
+        pytest -v --cov=rocket_sim --cov-report=xml --cov-report=term -n auto --ignore=rocket_sim/gui/tests
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5

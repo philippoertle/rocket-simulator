@@ -46,6 +46,7 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "09:00"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "github-actions"
@@ -54,3 +55,10 @@ updates:
       prefix: "ci"
     reviewers:
       - "philippoertle"
+    assignees:
+      - "philippoertle"
+    # Group all GitHub Actions updates together
+    groups:
+      github-actions:
+        patterns:
+          - "*"
